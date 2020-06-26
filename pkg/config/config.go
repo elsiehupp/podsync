@@ -38,8 +38,8 @@ type Feed struct {
 	Filters Filters `toml:"filters"`
 	// Clean is a cleanup policy to use for this feed
 	Clean Cleanup `toml:"clean"`
-	// Custom is a list of feed customizations
-	Custom Custom `toml:"custom"`
+	// Metadata is a list of feed customizations
+	Metadata Metadata `toml:"custom"`
 	// Included in OPML file
 	OPML bool `toml:"opml"`
 }
@@ -52,11 +52,21 @@ type Filters struct {
 	// More filters to be added here
 }
 
-type Custom struct {
-	CoverArt string `toml:"cover_art"`
-	Category string `toml:"category"`
-	Explicit bool   `toml:"explicit"`
-	Language string `toml:"lang"`
+// Metadata pertaining to the feed (not the episode)
+type Metadata struct {
+	// Renamed from "Custom"
+	// from https://help.apple.com/itc/podcasts_connect/#/itcb54353390
+	Title       string `toml:"feed_title"`
+	Description string `toml:"feed_description"`
+	CoverArt    string `toml:"feed_image"` // Renamed from "cover_art"
+	Subtitle    string `toml:"feed_subtitle`
+	Author      string `toml:"feed_author`
+	Language    string `toml:"feed_language"` // Renamed from "lang"
+	Category    string `toml:"feed_category"` // Renamed from "category"
+	Subcategory string `toml:"feed_subcategory`
+	AdminName   string `toml:"feed_admin_name"`
+	AdminEmail  string `toml:"feed_admin_email"`
+	Explicit    bool   `toml:"feed_explicit"` // Renamed from "explicit"
 }
 
 type Server struct {
