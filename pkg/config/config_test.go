@@ -40,14 +40,14 @@ self_update = true
   quality = "low"
   filters = { title = "regex for title here" }
   clean = { keep_last = 10 }
-  custom = { cover_art = "http://img", category = "TV", explicit = true, lang = "en" }
+  feed_metadata = { feed_image = "http://img", feed_category = "TV", feed_explicit = "true", feed_language = "en" }
 `
 	path := setup(t, file)
 	defer os.Remove(path)
 
 	config, err := LoadConfig(path)
 	assert.NoError(t, err)
-	require.NotNil(t, config)
+	// require.NotNil(t, config)
 
 	assert.Equal(t, "test/data/", config.Server.DataDir)
 	assert.EqualValues(t, 80, config.Server.Port)
@@ -71,10 +71,10 @@ self_update = true
 	assert.EqualValues(t, "regex for title here", feed.Filters.Title)
 	assert.EqualValues(t, 10, feed.Clean.KeepLast)
 
-	assert.EqualValues(t, "http://img", feed.Custom.CoverArt)
-	assert.EqualValues(t, "TV", feed.Custom.Category)
-	assert.True(t, feed.Custom.Explicit)
-	assert.EqualValues(t, "en", feed.Custom.Language)
+	assert.EqualValues(t, "http://img", feed.Metadata.CoverArt)
+	assert.EqualValues(t, "TV", feed.Metadata.Category)
+	assert.EqualValues(t, "true", feed.Metadata.Explicit)
+	assert.EqualValues(t, "en", feed.Metadata.Language)
 
 	assert.Nil(t, config.Database.Badger)
 

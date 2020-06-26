@@ -1,0 +1,237 @@
+### config.toml ###
+
+
+[server] #######################################################################
+# All tags in this section must be specified.
+
+  # Port for podsync to run on
+    # If podsync is running alongside a web server,
+    #   the port cannot be 80 (http) or 443 (https).
+    # Port 8080 is a common alternative to port 80.
+    # If you are publishing to a public html folder
+    #   the port specified here does not matter.
+  port = 8080
+
+  # The directory where podsync should save podcast RSS feeds
+    # Podcast episodess will be saved in a subfolder
+    #   with the same name as the XML file.
+  # If you are running podsync via Docker (e.g. on Windows), use:
+  # data_dir = "/app/data"
+  # If you are running podsync on a Linux Apache server, use:
+  # data_dir = "var/www/public_html"
+  #   or
+  data_dir = "var/www/rss.example.com/public_html"
+
+  # The hostname tells the RSS reader what domain
+  #   the episodes can be downloaded from.
+    # If you are running podsync on a Linux Apache machine,
+    #   the hostname must correspond with the data directory.
+  hostname = "rss.example.com"
+
+
+[tokens] #######################################################################
+# At present, podsync supports downloading from YouTube and Vimeo.
+# A YouTube or Vimeo key is required to download from either site.
+# API keys are free, but they prevent you from downloading too much at once.
+
+  # YouTube API Key.
+    # See https://developers.google.com/youtube/registering_an_application
+  # youtube = "" 
+
+  # Vimeo developer keys.
+    # See https://developer.vimeo.com/api/guides/start#generate-access-token
+    # If multiple keys are listed, they will be rotated.
+  # vimeo = [
+  #  "VIMEO_API_KEY_1",
+  #  "VIMEO_API_KEY_2"
+  # ]
+
+
+[feeds] ########################################################################
+# To publish multiple feeds, copy and paste everything
+#   between "Begin Feed Parameters" and "End Feed Parameters"
+#   for each additional feed.
+
+### Begin Feed Parameters ###
+
+  # String following '.' will be the file name of the rss feed
+    # (".xml" extension will be added automatically)
+  [feeds.name_for_xml_file]
+
+  # Uniform Resource Locator (URL) for a channel, group, user, or playlist.
+    # Valid URL examples:
+    #   https://www.youtube.com/user/foobar555
+    #   https://www.youtube.com/channel/foobar555
+    #   https://www.youtube.com/playlist?list=foobar
+  url = "" 
+
+  # The number of episodes to query each update
+    # (Higher numbers might drain the API token's daily quota.)
+  page_size = 5
+
+  # How often query for updates, examples: "60m", "4h", "2h45m"
+    # If this tag is left blank, podsync will not run automatically,
+    # and your podcast will not be updated automatically.
+  update_period = "24h"
+
+  # Optional cron expression format.
+    # If if this tag is specified it will supersede 'update_period'.
+  # cron_schedule = "@every 12h" 
+
+  # Video quality
+  # quality = "low"
+  quality = "high"
+
+  # Should podsync save episodes as audio or as video?
+  # format = "video"
+  format = "audio"
+
+  # Maximum height of video to download
+    # Example: 720, 1080, 1440, 2160, ...
+    # If this tag is left blank, maximum height will be determined by source.
+  # max_height = "720" 
+
+  # Regular expressions to optionally filter episodes to download
+    # If this tage is left blank, feed will include all episodes.
+  # filters = {
+  #   title = "regex for title here",
+  #   not_title = "regex for negative title match",
+  #   description = "...",
+  #   not_description = "..."
+  # }
+
+  # Include link to feed in an OPML digest?
+    # This can be useful when you have multiple feeds.
+    # If this tag is left blank or commented out it will default to false.
+  # opml = true
+ 
+  # Maximum number of episodes to keep in feed
+    # (in reverse chronological order)
+  # clean = {
+  #   keep_last = 10
+  # } 
+
+  # Metadata pertaining to the feed as a whole
+  # Better metadata increases your feed's visibility
+  # See: https://help.apple.com/itc/podcasts_connect/#/itcb54353390
+  # feed_metadata = {
+    # Whether or not to allow your podcast to be indexed by Apple
+      # If this tag is left blank, your podcast WILL NOT appear on Apple Podcasts.
+      # (Listeners may still add your podcast manually with its RSS URL.)
+    allow_apple_podcasts = ""
+
+    # The primary title of your podcast
+      # If this tag is left blank, title will be automatically parsed from source
+      # Required for Apple Podcasts
+    feed_title = ""
+
+    # A description of your feed's content
+      # If this tag exceeds 4000 characters,
+      #   your podcast may not appear on Apple Podcasts.
+      # If this tag is left blank,
+      #   your podcast may not appear on Apple Podcasts.
+    feed_description = ""
+
+    # A thumbnail image for your podcast
+      # Artwork should be a minimum size of 1400 x 1400 pixels
+      #   and a maximum size of 3000 x 3000 pixels,
+      #   in JPEG or PNG format, 72 dpi, with appropriate file extensions
+      #   (.jpg, .png), and in the RGB colorspace,
+      #   or it may not appear on Apple Podcasts
+      # If this tag is left blank,
+      #   your podcast may not appear on Apple Podcasts.
+    feed_image = "https://rss.example.com/name_for_xml_file.jpg"
+    
+    # The tagline for your podcast
+      # Not required for Apple Podcasts
+    feed_subtitle = ""
+
+    # The primary author of the podcast feed
+      # If this tag is left blank,
+      #   your podcast may not appear on Apple Podcasts.
+    feed_author = ""
+
+    # The primary language in which your podcast is spoken
+      # Format must follow ISO 639:
+      #   http://www.loc.gov/standards/iso639-2/php/code_list.php
+      # If this tag is left blank,
+      #   your podcast may not appear on Apple Podcasts.
+    feed_language = ""
+
+    # A general category for your podcast
+      # From the list here:
+      #   https://help.apple.com/itc/podcasts_connect/#/itc9267a2f12
+      # If this tag is left blank,
+      #   your podcast may not appear on Apple Podcasts.
+    feed_category = ""
+
+    # A more specific category for your podcast
+      # From the list here:
+      #   https://help.apple.com/itc/podcasts_connect/#/itc9267a2f12
+      # Not required, but if the subcategory does not match the parent category
+      #   your podcast may be demoted by Apple Podcasts.
+    feed_subcategory = ""
+
+    # The name of the person responsible for maintaining this RSS feed
+      # This person is probably you.
+      # Not required but strongly encouraged for Apple Podcasts
+      # Not shown in most podcast players
+    feed_admin_name = "Your Name"
+
+    # The contact email for the person named above
+      # This must be a real email address.
+      # Not required but strongly encouraged for Apple Podcasts
+      # Not shown in most podcast players
+    feed_admin_email = "your.email@example.com"
+
+    # An RSS feed is explicit if it is not appropriate for children
+      # If this tag is left blank,
+      #   your podcast may not appear on Apple Podcasts.
+    feed_explicit = ""
+
+    # Copyright notice for your podcast feed
+      # Not required but strongly encouraged for Apple Podcasts
+    feed_copyright = ""
+
+### End Feed Parameters ###
+
+# Parameters for additional feeds may be pasted here.
+
+[database] ###############################################################
+# See https://github.com/dgraph-io/badger#memory-usage
+  # You probably shouldn't need to change these settings.
+badger = { truncate = true, file_io = true } 
+
+[downloader] #############################################################
+# Should podsync attempt to auto-update youtube-dl every 24 hours?
+  # youtube-dl is updated frequently, and older versions are frequently broken.
+  # This auto-update will not work if you install youtube-dl from apt-get.
+  # If this tag is left blank, youtube-dl will not auto-update
+  #   and will probably stop working after some time.
+self_update = true 
+
+[log] ####################################################################
+# Configuration for optional log file
+
+  # Directory and filename where podsync should save its logs
+    # If no directory is specified, the log file will be saved
+    #   in the same directory as the podsync executable.
+    # If no filename is specified, logging will default to STDOUT.
+  filename = "./podsync.log"
+
+  # Size in Megabytes beyond which older entries should be culled from the log file
+    # If this tag is left blank, the log file will grown indefinitely.
+  max_size = 50 # MB
+
+  # Age after which entries should be culled from the log file
+    # If this tag is left blank, older logs will accrue indefinitely.
+  max_age = 30 # days
+
+  # Number of backups beyond which older backups should be culled
+    # If this tag is left blank, backups will accrue indefinitely.
+  max_backups = 7
+
+  # Should podsync compress the log file?
+    # This can be useful if you plan on keeping logs indefinitely.
+    # If this tag is left blank, ... ?
+  compress = true

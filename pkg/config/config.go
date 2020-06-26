@@ -39,7 +39,7 @@ type Feed struct {
 	// Clean is a cleanup policy to use for this feed
 	Clean Cleanup `toml:"clean"`
 	// Metadata is a list of feed customizations
-	Metadata Metadata `toml:"custom"`
+	Metadata Metadata `toml:"feed_metadata"`
 	// Included in OPML file
 	OPML bool `toml:"opml"`
 }
@@ -59,15 +59,17 @@ type Metadata struct {
 	// from https://help.apple.com/itc/podcasts_connect/#/itcb54353390
 	Title       string `toml:"feed_title"`
 	Description string `toml:"feed_description"`
-	CoverArt    string `toml:"feed_image"` // Renamed from "cover_art"
+	CoverArt    string `toml:"feed_image"`
 	Subtitle    string `toml:"feed_subtitle`
 	Author      string `toml:"feed_author`
-	Language    string `toml:"feed_language"` // Renamed from "lang"
-	Category    string `toml:"feed_category"` // Renamed from "category"
+	Language    string `toml:"feed_language"`
+	Category    string `toml:"feed_category"`
 	Subcategory string `toml:"feed_subcategory`
 	AdminName   string `toml:"feed_admin_name"`
 	AdminEmail  string `toml:"feed_admin_email"`
-	Explicit    bool   `toml:"feed_explicit"` // Renamed from "explicit"
+	Explicit    string `toml:"feed_explicit"`
+	Copyright   string `toml:"feed_copyright"`
+	AllowItunes string `toml:"block_apple_podcasts`
 }
 
 // Server for RSS feeds
