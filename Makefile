@@ -2,7 +2,7 @@ BINPATH := $(abspath ./bin)
 GOLANGCI := $(BINPATH)/golangci-lint
 
 .PHONY: all
-all: build lint test
+all: build  test
 
 #
 # Build Podsync CLI binary
@@ -31,9 +31,9 @@ $(GOLANGCI):
 #
 # Run linter
 #
-.PHONY: lint
-lint: $(GOLANGCI)
-	$(GOLANGCI) run
+# .PHONY: lint
+# lint: $(GOLANGCI)
+# 	$(GOLANGCI) run
 
 #
 # Run unit tests
