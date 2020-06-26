@@ -44,6 +44,7 @@ type Feed struct {
 	OPML bool `toml:"opml"`
 }
 
+// Filters for episodes
 type Filters struct {
 	Title          string `toml:"title"`
 	NotTitle       string `toml:"not_title"`
@@ -69,6 +70,7 @@ type Metadata struct {
 	Explicit    bool   `toml:"feed_explicit"` // Renamed from "explicit"
 }
 
+// Server for RSS feeds
 type Server struct {
 	// Hostname to use for download links
 	Hostname string `toml:"hostname"`
@@ -79,6 +81,7 @@ type Server struct {
 	DataDir string `toml:"data_dir"`
 }
 
+// Database for storing feed data
 type Database struct {
 	// Dir is a directory to keep database files
 	Dir    string  `toml:"dir"`
@@ -92,11 +95,13 @@ type Badger struct {
 	FileIO   bool `toml:"file_io"`
 }
 
+// Cleanup feeds by removing older episodes
 type Cleanup struct {
 	// KeepLast defines how many episodes to keep
 	KeepLast int `toml:"keep_last"`
 }
 
+// Log file to write to disk (instead of to console)
 type Log struct {
 	// Filename to write the log to (instead of stdout)
 	Filename string `toml:"filename"`
@@ -116,6 +121,7 @@ type Downloader struct {
 	SelfUpdate bool `toml:"self_update"`
 }
 
+// Config settings for feed server
 type Config struct {
 	// Server is the web server configuration
 	Server Server `toml:"server"`

@@ -6,10 +6,12 @@ import (
 	"github.com/pkg/errors"
 )
 
+// Duration time of episode
 type Duration struct {
 	time.Duration
 }
 
+// UnmarshalText duration
 func (d *Duration) UnmarshalText(text []byte) error {
 	res, err := time.ParseDuration(string(text))
 	if err != nil {
@@ -24,6 +26,7 @@ func (d *Duration) UnmarshalText(text []byte) error {
 // value (a slice with just one element) or a string slice.
 type StringSlice []string
 
+// UnmarshalTOML StringSlice
 func (s *StringSlice) UnmarshalTOML(decode func(interface{}) error) error {
 	var single string
 	if err := decode(&single); err == nil {
